@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="offerForm" (ngSubmit)="submitOffer()">
+    <ion-item>
+      <ion-label position="floating">Dog Name</ion-label>
+      <ion-input formControlName="dogName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Dog Age</ion-label>
+      <ion-input type="number" formControlName="dogAge"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Personality</ion-label>
+      <ion-textarea formControlName="personality"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Walk Time</ion-label>
+      <ion-input formControlName="walkTime"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Area</ion-label>
+      <ion-select formControlName="area">
+        <ion-select-option *ngFor="let area of areas" [value]="area">{{ area }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="offerForm.invalid">Submit</ion-button>
+  </form>
+</ion-content>

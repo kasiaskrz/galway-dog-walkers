@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    
+     <!-- 🐶 Profile Image + Greeting -->
+     <div *ngIf="isLoggedIn && userName" class="home-profile-header">
+      <img [src]="profileImageUrl || 'assets/images/profile-placeholder.png'" class="profile-image-home" alt="Profile Image">
+      <h2 class="welcome-text">Paw-some to see you, {{ userName }}!</h2>
+    </div>
+    
+    <!-- Always visible buttons -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-button expand="block" (click)="navigateTo('/dog-facts')">Dog Facts</ion-button>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button expand="block" (click)="navigateTo('/offers')">Browse Posts</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- Only when logged in as dog owner -->
+    <ion-row *ngIf="isLoggedIn && userType === 'owner'">
+      <ion-col size="12">
+        <ion-button expand="block" color="primary" (click)="navigateTo('/create-offer')">
+          Post a Request
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- Only when logged in as dog walker -->
+    <ion-row *ngIf="isLoggedIn && userType === 'walker'">
+      <ion-col size="12">
+        <ion-button expand="block" color="primary" (click)="navigateTo('/create-walker-availability')">
+          Post Availability
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-button expand="block" *ngIf="isLoggedIn" (click)="navigateTo('/profile')">
+      View Profile
+    </ion-button>
+
+    <ion-row *ngIf="isLoggedIn">
+      <ion-col size="12">
+        <ion-button expand="block" color="medium" (click)="navigateTo('/my-posts')">
+          My Posts
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    
+  </ion-grid>
+</ion-content>

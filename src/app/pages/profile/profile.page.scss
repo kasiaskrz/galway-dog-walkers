@@ -1,0 +1,111 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.profile-image-wrapper {
+  margin-bottom: 1rem;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-email {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  color: #444;
+  text-align: center;
+}
+
+ion-item {
+  width: 100%;
+  max-width: 400px;
+  margin: 0.5rem 0;
+}
+
+.save-btn {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.cancel-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+/* Modal image selector */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 1rem;
+}
+
+.avatar-option {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.avatar-option:hover {
+  transform: scale(1.05);
+}
+
+.avatar-option.selected {
+  border-color: #3880ff;
+}
+
+ion-button {
+  --border-radius: 12px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+}
+
+/* Specific buttons (optional colors or effects) */
+.change-img-btn {
+  --background: #fff;
+  --color: #3880ff;
+  --border-color: #3880ff;
+  --border-width: 2px;
+}
+
+.save-btn {
+  --background: #28a745;
+  --color: white;
+}
+
+.cancel-btn {
+  --color: #666;
+}
+
+.user-type {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+

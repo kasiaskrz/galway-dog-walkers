@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding login-page-content">
+  <div class="login-card">
+    <div class="login-card-header">
+      <h2>Login</h2>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <ion-item class="input-item">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email" class="custom-input"></ion-input>
+      </ion-item>
+      <ion-note color="danger" class="form-error-note"
+        *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+        Please enter a valid email
+      </ion-note>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password" class="custom-input"></ion-input>
+      </ion-item>
+      <ion-note color="danger" class="form-error-note"
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+        Password must be at least 6 characters
+      </ion-note>
+
+      <ion-button type="submit" expand="block" class="submit-button" [disabled]="!loginForm.valid || isLoading">
+        <ion-spinner *ngIf="isLoading"></ion-spinner>
+        <span *ngIf="!isLoading">Login</span>
+      </ion-button>
+
+      <ion-text color="danger" *ngIf="errorMessage">
+        <p class="ion-text-center">{{ errorMessage }}</p>
+      </ion-text>
+    </form>
+  </div>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-text>
+      Already have an account?
+      <a (click)="navigateToRegister()" style="cursor: pointer; color: var(--ion-color-primary);">
+        Register here
+      </a>
+    </ion-text>
+  </div>
+</ion-content>

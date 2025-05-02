@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="profile-container">
+    <div class="profile-image-wrapper">
+      <img [src]="profileImageUrl || 'assets/images/profile-placeholder.png'" class="profile-image" alt="Profile Image">
+    </div>
+
+    <ion-button expand="block" fill="outline" class="change-img-btn" (click)="openImageSelector()">
+      Change Profile Image
+    </ion-button>
+
+    <h2 class="profile-email">{{ userEmail }}</h2>
+    <p class="user-type">Profile type: {{ userType === 'walker' ? 'Dog Walker' : 'Dog Owner' }}</p>
+    
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber" placeholder="Enter phone number"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="success" class="save-btn" (click)="updatePhoneNumber()">
+      Update Phone Number
+    </ion-button>
+  </div>
+</ion-content>

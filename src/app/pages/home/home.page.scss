@@ -1,0 +1,26 @@
+.welcome-message {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+  }
+  
+  .home-profile-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-image-home {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    margin-bottom: 0.5rem;
+  }
+  
+  .welcome-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  

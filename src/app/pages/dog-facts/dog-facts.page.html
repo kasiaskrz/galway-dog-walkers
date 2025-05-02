@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Did You Know...</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ fact }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="refreshManually()">Refresh Fact</ion-button>
+
+  <ion-text color="medium" class="ion-text-center ion-margin-top">
+    <p>Or just give your phone a little shake!</p>
+  </ion-text>
+</ion-content>

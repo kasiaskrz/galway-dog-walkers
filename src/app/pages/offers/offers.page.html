@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment [value]="selectedTab" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="owner">
+      <ion-label>Owner Requests</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="walker">
+      <ion-label>Walker Availability</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-grid>
+    <!-- Owner Offers -->
+    <ion-row *ngIf="selectedTab === 'owner'">
+      <ion-col size="6" *ngFor="let offer of ownerOffers">
+        <ion-card (click)="openOffer(offer)">
+          <ion-card-header>
+            <ion-card-title>Dog: {{ offer.dogName }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>Age:</strong> {{ offer.dogAge }}</p>
+            <p><strong>Walk Duration:</strong> {{ offer.walkTime }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" *ngIf="ownerOffers.length === 0">
+        <p class="ion-text-center">No owner requests posted yet.</p>
+      </ion-col>
+    </ion-row>
+
+    <!-- Walker Availability Tab -->
+    <ion-row *ngIf="selectedTab === 'walker'">
+      <ion-col size="6" *ngFor="let post of walkerAvailability">
+        <ion-card (click)="openAvailability(post)">
+          <ion-card-header>
+            <ion-card-title>{{ post.ownerName }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>Days:</strong> {{ (post.availableDays || []).join(', ') }}</p>
+            <p><strong>Time:</strong> {{ post.availableTimeStart }} – {{ post.availableTimeEnd }}</p>
+            <p><strong>Area:</strong> {{ post.area }}</p>
+            <p *ngIf="post.description"><strong>Notes:</strong> {{ post.description }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" *ngIf="walkerAvailability.length === 0">
+        <p class="ion-text-center">No walker availability posted yet.</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

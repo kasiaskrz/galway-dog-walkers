@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngIf="post">
+    <ion-card-header>
+      <ion-card-title>{{ post.ownerName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Days Available:</strong> {{ (post.availableDays || []).join(', ') }}</p>
+      <p><strong>Time:</strong> {{ post.availableTimeStart }} – {{ post.availableTimeEnd }}</p>
+      <p><strong>Area:</strong> {{ post.area }}</p>
+      <p *ngIf="post.description"><strong>Notes:</strong> {{ post.description }}</p>
+
+      <!-- PHONE BUTTON -->
+      <ion-button *ngIf="post.ownerPhone" expand="block" fill="outline" color="success" (click)="callWalker()">
+        <ion-icon slot="start" name="call-outline"></ion-icon>
+        Call: {{ post.ownerPhone }}
+      </ion-button>
+
+      <!-- EMAIL BUTTON -->
+      <ion-button *ngIf="post.ownerEmail" expand="block" fill="outline" color="primary" (click)="emailWalker()">
+        <ion-icon slot="start" name="mail-outline"></ion-icon>
+        Email: {{ post.ownerEmail }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

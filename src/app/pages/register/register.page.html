@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding register-page-content">
+  <div class="register-card">
+    <div class="register-card-header">
+      <h2>Create Account</h2>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+      <!-- Name -->
+      <ion-item>
+        <ion-label position="floating">Full Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-note color="danger" class="form-error-note" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+        Name is required
+      </ion-note>
+
+      <!-- Email -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-note color="danger" class="form-error-note" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+        Please enter a valid email
+      </ion-note>
+
+      <!-- Password -->
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <ion-note color="danger" class="form-error-note"
+        *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+        Password must be at least 6 characters
+      </ion-note>
+
+      <!-- User Type -->
+      <ion-item>
+        <ion-label>I am a...</ion-label>
+        <ion-select formControlName="userType" interface="popover">
+          <ion-select-option value="owner">Dog Owner</ion-select-option>
+          <ion-select-option value="walker">Dog Walker</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Phone (optional) -->
+      <ion-item>
+        <ion-label position="floating">Phone (optional)</ion-label>
+        <ion-input formControlName="phone" type="tel"></ion-input>
+      </ion-item>
+
+      <!-- Submit -->
+      <ion-button type="submit" expand="block" class="submit-button" [disabled]="!registerForm.valid || isLoading">
+        <ion-spinner *ngIf="isLoading"></ion-spinner>
+        <span *ngIf="!isLoading">Register</span>
+      </ion-button>
+
+      <!-- Error Message -->
+      <ion-text color="danger" *ngIf="errorMessage">
+        <p class="ion-text-center">{{ errorMessage }}</p>
+      </ion-text>
+    </form>
+  </div>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-text>
+      Already have an account?
+      <a (click)="navigateToLogin()" style="cursor: pointer; color: var(--ion-color-primary)">
+        Login here
+      </a>
+    </ion-text>
+  </div>
+</ion-content>

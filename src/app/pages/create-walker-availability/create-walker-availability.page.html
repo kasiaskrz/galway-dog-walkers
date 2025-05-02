@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="center-logo">
+      <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="availabilityForm" (ngSubmit)="submitAvailability()">
+    <ion-item>
+      <ion-label>Available Days</ion-label>
+      <ion-select formControlName="availableDays" multiple="true">
+        <ion-select-option *ngFor="let day of availableDays" [value]="day">{{ day }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Available From</ion-label>
+      <ion-select formControlName="availableTimeStart" placeholder="Select time">
+        <ion-select-option *ngFor="let time of times" [value]="time">{{ time }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Available Until</ion-label>
+      <ion-select formControlName="availableTimeEnd" placeholder="Select time">
+        <ion-select-option *ngFor="let time of times" [value]="time">{{ time }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Area</ion-label>
+      <ion-select formControlName="area">
+        <ion-select-option *ngFor="let area of areas" [value]="area">{{ area }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Additional Information</ion-label>
+      <ion-textarea formControlName="description" placeholder="Provide any other relevant details"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!availabilityForm.valid || isLoading">
+      Submit Availability
+    </ion-button>
+  </form>
+</ion-content>

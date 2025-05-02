@@ -1,0 +1,35 @@
+.register-card {
+    border: 2px solid #C47335;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+  
+  .register-card-header {
+    background-color: #C47335;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: -20px -20px 20px -20px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+  }
+  
+  .submit-button {
+    --background: #ED9B40;
+    --color: white;
+    font-weight: bold;
+    margin-top: 16px;
+  }
+
+  .form-error-note {
+    font-size: 12px;
+    margin-left: 8px;
+    margin-top: 4px;
+    display: block;
+  }
+  
+  
