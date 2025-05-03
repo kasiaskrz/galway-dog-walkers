@@ -7,6 +7,7 @@
     <ion-title class="center-logo">
       <img src="assets/images/logo_2.png" alt="Logo" class="logo-img">
     </ion-title>
+
     <ion-buttons slot="end">
       <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()">Login</ion-button>
       <ion-button *ngIf="isLoggedIn" (click)="logout()">Logout</ion-button>
@@ -18,30 +19,36 @@
   <!-- Info Text -->
   <div class="ion-text-center ion-margin-bottom">
     <ion-text color="medium">
-      Swipe a post to delete it
+      Below are your posts. You can delete any.
     </ion-text>
   </div>
 
-  <!-- Posts -->
   <ion-list *ngIf="myPosts.length > 0">
-    <ion-item-sliding *ngFor="let post of myPosts">
-      <ion-item lines="none">
-        <ion-card class="custom-card">
-          <ion-card-content>
-            <p><strong>Days:</strong> {{ post.availableDays?.join(', ') }}</p>
-            <p><strong>Time:</strong> {{ post.availableTimeStart }} – {{ post.availableTimeEnd }}</p>
-            <p><strong>Area:</strong> {{ post.area }}</p>
-            <p *ngIf="post.description"><strong>Notes:</strong> {{ post.description }}</p>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="confirmDelete(post.id)">
+    <ion-item *ngFor="let post of myPosts" lines="none">
+      <ion-label>
+        <!-- For walker posts -->
+        <ng-container *ngIf="currentCollection === 'walkerAvailability'">
+          <h3><strong>Days:</strong> {{ post.availableDays?.join(', ') }}</h3>
+          <p><strong>Time:</strong> {{ post.availableTimeStart }} - {{ post.availableTimeEnd }}</p>
+          <p><strong>Area:</strong> {{ post.area }}</p>
+          <p *ngIf="post.description"><strong>Notes:</strong> {{ post.description }}</p>
+        </ng-container>
+  
+        <!-- For owner posts -->
+        <ng-container *ngIf="currentCollection === 'offers'">
+          <h3><strong>Dog:</strong> {{ post.dogName }}</h3>
+          <p><strong>Walk Time:</strong> {{ post.walkTime }}</p>
+          <p><strong>Area:</strong> {{ post.area }}</p>
+          <p><strong>Personality:</strong> {{ post.personality }}</p>
+        </ng-container>
+  
+        <ion-button color="danger" expand="block" (click)="confirmDelete(post.id)">
           Delete
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
+        </ion-button>
+      </ion-label>
+    </ion-item>
   </ion-list>
+  
 
   <!-- No Posts Message -->
   <div *ngIf="myPosts.length === 0" class="ion-text-center">

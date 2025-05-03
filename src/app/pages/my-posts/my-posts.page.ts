@@ -2,7 +2,16 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Firestore, collection, query, where, getDocs, deleteDoc, doc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+  getDoc
+} from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +27,7 @@ export class MyPostsPage implements OnInit {
   userEmail: string = '';
   isLoggedIn: boolean = false;
   myPosts: any[] = [];
+  currentCollection: string = ''; // Either 'offers' or 'walkerAvailability'
 
   private afAuth = inject(AngularFireAuth);
   private firestore = inject(Firestore);
@@ -30,6 +40,23 @@ export class MyPostsPage implements OnInit {
         this.isLoggedIn = true;
         this.userId = user.uid;
         this.userEmail = user.email || '';
+
+        // Get userType from Firestore
+        const userDocRef = doc(this.firestore, 'users', this.userId);
+        const userSnap = await getDoc(userDocRef);
+        const userData = userSnap.data();
+        const userType = userData?.['userType'];
+
+        // Set collection based on userType
+        if (userType === 'owner') {
+          this.currentCollection = 'offers';
+        } else if (userType === 'walker') {
+          this.currentCollection = 'walkerAvailability';
+        } else {
+          console.warn('Unknown user type');
+          return;
+        }
+
         this.loadUserPosts();
       } else {
         this.isLoggedIn = false;
@@ -39,7 +66,9 @@ export class MyPostsPage implements OnInit {
   }
 
   async loadUserPosts() {
-    const postsRef = collection(this.firestore, 'walkerAvailability');
+    if (!this.currentCollection || !this.userEmail) return;
+
+    const postsRef = collection(this.firestore, this.currentCollection);
     const q = query(postsRef, where('ownerEmail', '==', this.userEmail));
     const snapshot = await getDocs(q);
 
@@ -51,8 +80,8 @@ export class MyPostsPage implements OnInit {
 
   async confirmDelete(postId: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Confirm Delete',
-      message: 'Are you sure you want to delete this post?',
+      header: 'Delete Post',
+      message: 'Are you sure you want to permanently delete this post?',
       buttons: [
         { text: 'Cancel', role: 'cancel' },
         {
@@ -66,7 +95,9 @@ export class MyPostsPage implements OnInit {
 
   async deletePost(postId: string) {
     try {
-      await deleteDoc(doc(this.firestore, 'walkerAvailability', postId));
+      if (!this.currentCollection) return;
+
+      await deleteDoc(doc(this.firestore, this.currentCollection, postId));
       this.myPosts = this.myPosts.filter(p => p.id !== postId);
     } catch (error) {
       console.error('Error deleting post:', error);

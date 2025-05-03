@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'dog-walking-app',
+  appId: 'com.dogwalking.app',         // Use your actual app ID
+  appName: 'Dog Walking App',          // This is the name shown on device
   webDir: 'www'
 };
 
